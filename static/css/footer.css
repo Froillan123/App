@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "Poppins", sans-serif;
+}
+
+:root 
+{
+    --bg-color: #ffff;
+    --primary-color: #0aa45f;
+    --text-color: #333333;
+    --error-warning: #FF6B6B;
+}
+html::-webkit-scrollbar
+{
+  width: 1.5em;
+  height: 1em;
+}
+
+html::-webkit-scrollbar-track
+{
+  background:var(--text-color);
+  border-radius: 100vw;
+  margin-block: 0.5em;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: rgba(10, 164, 95, 1); /* Adjust the RGB values as needed and set the alpha (transparency) value */
+    border-radius: 100vw;
+    margin-block: 0.5em;
+  }
+  
+html
+{
+    font-size: 62.5%;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 3rem 9%;
+    background: var(--primary-color); 
+}
+
+.footer-text p {
+    font-size: 1.6rem;
+    color: var(--bg-color); /* Text in the footer will be white (background color) */
+}
+
+.social-media a {
+    margin-right: 3rem;
+    font-size: 3rem;
+    color: var(--bg-color);
+    transition: color 0.3s ease;
+}
+
+.social-media a:hover
+{
+    color: var(--text-color); 
+}
+
+.footer-iconTop a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: var(--bg-color); /* Button background white */
+    border-radius: .8rem;
+    transition: .3s ease;
+}
+
+.footer-iconTop a:hover {
+    box-shadow: 0 0 1rem var(--primary-color); /* Shadow effect on hover */
+    color: var(--text-color);
+}
+
+.footer-iconTop a i {
+    font-size: 2rem;
+    color: var(--primary-color); /* Arrow icon will use primary color */
+}
+
+
+@media(max-width: 365px)
+{
+
+    .footer
+    {
+        flex-direction: column-reverse;
+    }
+    .footer p 
+    {
+        text-align: center;
+        margin-top: 2rem;
+    }
+  
+    .social-media
+    {
+        margin-top: 2rem;
+    }
+}

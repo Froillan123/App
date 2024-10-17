@@ -1,0 +1,58 @@
+.alert-messagelogin {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* On top of other elements */
+    margin: 0; /* Remove default margin */
+}
+
+.error-messages {
+    display: flex; /* Use flexbox for content alignment */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 15px;
+    background-color: #fff; /* White background */
+    color: #333; /* Red text color */
+    border-radius: 8px; /* Rounded corners */
+    width: 350px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center text */
+}
+
+.error-messages ul {
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    width: 100%; /* Ensure full width for the list */
+}
+
+.error-messages ul li {
+    list-style-type: none; /* Remove bullet points */
+    margin: 10px 0; /* Add some spacing between messages */
+    font-size: 1.6rem; /* Font size for messages */
+}
+
+#alert-ok-button {
+    margin-top: 2rem;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    color: #333;
+    background-color: #d8e3d5;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+#alert-ok-button:hover {
+    background-color: #503cd1; /* Darker green on hover */
+    color: #fff;
+}
+
+

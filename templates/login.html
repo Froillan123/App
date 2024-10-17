@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/alertlogin.css') }}">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="alert-messagelogin" style="display: none;">
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="error-messages">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <button id="alert-ok-button">OK</button> <!-- OK button to reset the form -->
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+        <div class="Login">
+        <h1>Welcome</h1>
+        <form id="login-form" action="{{ url_for('auth.login') }}" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button id="submit" class="submit">Login</button>
+        </form>
+
+        <!-- This section will display flash messages -->
+
+        <p class="register" style="font-size: 12px;">Don't have an account? <a href="/register"><span style="color: #0aa45f; font-size: 14px; text-decoration: underline; margin-left: 10px;">Create one here.</span></a></p>
+    </div>
+
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const alertMessages = document.querySelector('.alert-messagelogin');
+    const alertOkButton = document.getElementById('alert-ok-button');
+    const loginForm = document.getElementById('login-form');
+
+    // Check if there are messages to show
+    if (alertMessages && alertMessages.querySelector('.error-messages')) {
+        alertMessages.style.display = 'flex'; // Show the alert
+
+        // Hide alert and reset the form on clicking the OK button
+        alertOkButton.addEventListener('click', function() {
+            alertMessages.style.display = 'none'; // Hide the alert
+            loginForm.reset(); // Reset the form fields
+        });
+    }
+});
+</script>
+</html>

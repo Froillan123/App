@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --bg-color: #ffff;
+    --primary-color: #0aa45f;
+    --text-color: #333333;
+    --error-warning: #FF6B6B;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.7rem 2%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    margin-left: 2rem;
+    font-weight: bold;
+}
+
+header .buttons {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+header .buttons a {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    color: #333;
+    background-color: #d8e3d5;
+    transition: background-color 0.3s;
+}
+
+header .buttons a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none; /* Hide by default */
+}
+
+
+
+.show {
+    display: block; /* Show dropdown */
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 23rem;
+}
+
+.text-content {
+    max-width: 50%;
+    padding-right: 20px;
+    padding: 50px;
+    margin-left: 5rem;
+    line-height: 1.5;
+}
+
+.text-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #333;
+    margin-top: -150px;
+    margin-bottom: 5rem;
+}
+
+.text-content p {
+    font-size: 18px;
+    color: #444;
+}
+
+.watch-video-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0aa45f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 5rem;
+}
+
+.watch-video-btn:hover {
+    background-color: #098a50;
+}
+
+.image-content {
+    max-width: 50%;
+    padding-right: 100px;
+    margin-top: -10rem;
+}
+
+.image-content img 
+{
+    width: 100%;
+    border-radius: 74% 26% 40% 60% / 63% 45% 55% 37%;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
+    height: 500px;
+}
+
+.full-width-image {
+    display: none; 
+    width: 100%; 
+}
+
+
+.services-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    transition: 0.3s ease;
+    margin-bottom: 5rem;
+    padding: 2rem 10%;
+    cursor: pointer;
+}
+.heading
+{
+    font-size: 4.5rem;
+    text-align: center;
+    margin-top: 10rem;
+}
+
+
+.services-container .services-box 
+{
+    flex: 1 1 30rem;
+    background: var(--bg-color); 
+    padding: 3rem 2rem 4rem;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.services-box i
+{
+    font-size: 6rem;
+    color: var(--primary-color); 
+}
+
+.services-box h3 {
+    font-size: 2.2rem;
+    color: var(--primary-color); 
+}
+
+.services-box p {
+    font-size: 1.6rem;
+    margin: 1rem 0 3rem;
+    color: var(--text-color); 
+}
+
+.services-container .services-box:hover {
+    transform: scale(1.1);
+}
+
+
+
+@media (max-width: 1252px) {
+    .hide-image {
+        display: none; /* Hide the original image */
+    }
+
+    .full-width-image {
+        display: block; /* Show the full-width image */
+        padding: 1rem;
+    }
+
+    .main-container {
+        flex-direction: column;
+        margin-top: 15rem;
+        min-height: auto; 
+        width: 100%;
+    }
+    .image-shown
+    {
+        margin-top: 7rem;
+    }
+
+    .text-content {
+        max-width: 100%;
+        padding: 6rem 5%;
+    }
+
+    .text-content h1 {
+        font-size: 4rem;
+        margin-top: 0;
+    }
+
+    .text-content p {
+        font-size: 2rem;
+    }
+
+    .image-content {
+        max-width: 100%;
+    }
+}
+
+@media(max-width: 775px)
+{
+    .services-container .services-box 
+    {
+        border: 1px solid var(--primary-color);
+    }
+}
+
+@media (max-width: 560px) 
+{
+    header .logo h1 {
+        font-size: 2.1rem;
+    }
+
+    header .buttons a {
+        text-decoration: none;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        color: #333;
+        background-color: #d8e3d5;
+        transition: background-color 0.3s;
+    }
+
+    .main-container {
+        margin-top: 5rem;
+        padding: 2rem 1%;
+    }
+
+    .text-content {
+        padding: 6rem 2%;
+        margin-left: 1rem;
+        margin-top: 2rem;
+    }
+
+    .text-content h1 {
+        font-size: 3rem;
+    }
+
+    .text-content p {
+        font-size: 1.5rem;
+    }
+
+    .watch-video-btn {
+        font-size: 1.5rem;
+    }
+
+    /* Hide buttons */
+    .buttons {
+        display: none; 
+    }
+
+
+}
+
+@media (max-width: 483px) 
+{
+    html 
+    {
+        font-size: 45%;
+    }
+
+    .heading
+    {
+        font-size: 3rem;
+        margin-top: 5rem;
+    }
+
+    .services-box h3
+    {
+        font-size: 2rem;
+    }
+
+    .services-box i
+    {
+        font-size: 4rem;
+    }
+    
+
+    .main-container {
+        flex-direction: column;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    .text-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .text-content p {
+        font-size: 1.4rem;
+    }
+
+    header .buttons a {
+        background-color: var(--bg-color);
+        color: #333; /* Ensure text color is set */
+        transition: none; /* Remove transition effects */
+    }
+
+    header .buttons a:hover {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    #menu-icon
+    {
+        display: block;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 50%;
+        padding: 1rem 3%;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0, 0, 0, .2);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+        display: none;
+    }
+    
+    .dropdown.active {
+        display: block; /* Show dropdown when active */
+    }
+    
+    .dropdown .buttons {
+        display: flex; /* Ensure buttons are displayed as flex items */
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 1rem; /* Space between buttons */
+    }
+    
+}
+
+
+@media(max-width: 311px)
+{
+    header .logo h1 {
+        margin-left: 0rem;
+        font-weight: bold;
+    }
+}

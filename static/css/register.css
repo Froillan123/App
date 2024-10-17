@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+:root {
+    --bg-color: #ffffff;
+    --primary-color: #0aa45f;
+    --text-color: #333333;
+    --error-warning: #FF6B6B;
+}
+
+
+
+.container 
+{
+    max-width: 60rem;
+    margin: 1rem auto;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9); /* More opacity for better visibility */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    margin-top: 3rem;
+}
+
+.logo
+{
+    margin-bottom: 2rem;
+}
+
+h1 {
+    margin-bottom: 2rem; /* Space between title and form */
+    font-size: 3.5rem; /* Slightly larger font size */
+    color: var(--primary-color); /* Change color to primary */
+}
+
+.input-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 2rem; /* Space between input groups */
+}
+
+.input-box input,
+.input-box select {
+    width: 49%; /* Adjust width for inputs */
+    padding: 1.5rem; /* Padding inside the input */
+    font-size: 1.6rem;
+    color: var(--text-color);
+    background: #f9f9f9; /* Light background for inputs */
+    border-radius: 0.8rem;
+    margin: 0.7rem 0; /* Margin for spacing */
+    border: 1px solid #ccc; /* Light border */
+}
+
+.input-box select {
+    width: 49%; /* Same width for select elements */
+}
+
+.input-box input:focus,
+.input-box select:focus {
+    border-color: var(--primary-color); /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.input-box input[type="email"] {
+    width: 100%; /* Ensures the email input takes full width */
+    padding: 1.5rem; /* Keep the padding consistent */
+    font-size: 1.6rem;
+    color: var(--text-color);
+    background: #f9f9f9; /* Light background for inputs */
+    border-radius: 0.8rem;
+    margin: 0.7rem 0; /* Margin for spacing */
+    border: 1px solid #ccc; /* Light border */
+}
+
+
+.btn 
+{
+    display: block;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    background-color: #0aa45f;
+    color: white; /* Set text color for better visibility */
+    border: none; /* Remove default border */
+    padding: 1rem; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth background transition */
+    margin-top: 2rem;
+}
+
+.btn:hover {
+    background-color: #088a4f; /* Darker shade on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+a {
+    margin-top: 1rem; /* Space above messages */
+    color: var(--primary-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    text-align: center; /* Center the text */
+    margin-top: 2.5rem; /* Space above paragraph */
+    font-size: 1.3rem;
+}
+
+/* Media Queries */
+@media (max-width: 792px) {
+   
+
+    .container {
+        padding: 2.5rem; /* Adjust padding for smaller screens */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    }
+
+    h1 {
+        font-size: 2.5rem; /* Smaller title on mobile */
+    }
+
+    .input-box input,
+    .input-box select {
+        width: 100%; /* Full width for inputs on small screens */
+    }
+}

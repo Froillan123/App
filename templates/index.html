@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/png.png') }}">
+    <title>Care-Match</title>
+</head>
+<body>
+    <header class="nav">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/png.png') }}" alt="" width="75" height="auto">
+            <h1><span style="color: #0aa45f;">Care</span>-Match</h1>
+        </div>
+        <i class='bx bx-menu' id="menu-icon"></i>
+<div class="dropdown" id="dropdown-menu">
+    <div class="buttons" id="buttons">
+        <a href="/login" class="button">Log In</a>
+        <a href="/register" class="button">Sign Up</a>
+    </div>
+</div>
+
+    </header>
+
+    <main>
+        <section class="main-container">
+            <div class="text-content">
+                <h1>Welcome to <span style="color: #0aa45f;">Care</span>-Match Find Your Perfect Caregiver Anytime, Anywhere!</h1>
+                <p>At Care-Match, we understand that finding the right caregiver is essential for your loved ones' well-being. Our platform connects you with compassionate, qualified caregivers tailored to meet your unique needs. Whether you need assistance at home or specialized care, we're here to help you make the perfect match.</p>
+                <a href="#" class="watch-video-btn">Watch a video about us!</a>
+            </div>
+    
+            <div class="image-content">
+                <img src="{{ url_for('static', filename='images/mainpic.png') }}" alt="Caregiver and patient" class="hide-image">
+            </div>
+        </section>
+    <div class="image-shown">
+        <img src="{{ url_for('static', filename='images/mainpic.png') }}" alt="Caregiver and patient" class="full-width-image">
+    </div>
+
+    <section class="services" id="services">
+        <h2 class="heading">Our <span style="color: var(--primary-color);">Services</span></h2>
+    
+        <div class="services-container">
+            <div class="services-box">
+                <i class='bx bx-home'></i> >
+                <h3>In-Home Care</h3>
+                <p>Compassionate caregivers providing personalized care in the comfort of your home.</p>
+              
+            </div>
+    
+            <div class="services-box">
+                <i class='bx bx-user-circle'></i>
+                <h3>Specialized Care</h3>
+                <p>Expert caregivers for specific needs, including Alzheimer’s and dementia care.</p>
+              
+            </div>
+    
+            <div class="services-box">
+                <i class="fa-solid fa-hand-holding-medical"></i>
+                <h3>Respite Care</h3>
+                <p>Temporary relief for primary caregivers, ensuring your loved one is well cared for.</p>
+             
+            </div>
+    
+            <div class="services-box">
+                <i class='bx bx-heart'></i> <!-- Change the icon as needed -->
+                <h3>Companionship</h3>
+                <p>Providing companionship and emotional support to enhance your loved one's quality of life.</p>
+            
+            </div>
+    
+            <div class="services-box">
+                <i class='bx bx-briefcase'></i> <!-- Change the icon as needed -->
+                <h3>Healthcare Staffing</h3>
+                <p>Qualified professionals to meet your healthcare staffing needs.</p>
+              
+            </div>
+    
+            <div class="services-box">
+                <i class='bx bx-calendar'></i> <!-- Change the icon as needed -->
+                <h3>Activity Planning</h3>
+                <p>Personalized activities to promote engagement and joy.</p>
+                
+            
+            </div>
+        </div>
+    </section>
+        
+    </main>
+
+
+    
+
+    {% include 'base.html' %}
+    
+    <script>
+        let menuIcon = document.querySelector('#menu-icon');
+        let dropdownMenu = document.querySelector('#dropdown-menu');
+        let header = document.querySelector('header'); // Added this line to define header
+    
+        menuIcon.onclick = () => {
+            menuIcon.classList.toggle('bx-x');
+            dropdownMenu.classList.toggle('active'); // Toggle the dropdown menu
+        };
+    
+        let sections = document.querySelectorAll('section'); // Ensure you have sections in your HTML
+        let navLinks = document.querySelectorAll('header a'); // Adjusted this selector
+    
+        window.onscroll = () => {
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+    
+                if (top >= offset && top < offset + height) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+    
+                        // Ensure the link exists before trying to access its classList
+                        let activeLink = document.querySelector('header a[href*="' + id + '"]');
+                        if (activeLink) {
+                            activeLink.classList.add('active'); // Only add 'active' if the element is found
+                        }
+                    });
+                }
+            });
+    
+            header.classList.toggle('sticky', window.scrollY > 100);
+        };
+    </script>
+    
+      
+</body>
+</html>

@@ -1,0 +1,63 @@
+.alert-messageRegister {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed; /* Fixed position */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* On top of other elements */
+    margin: 0; /* Remove default margin */
+}
+
+.error-messagesRegister
+{
+    display: flex; /* Use flexbox for content alignment */
+    flex-direction: column; /* Arrange children in a column */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 15px;
+    background-color: #fff; /* White background */
+    color: #333;
+    border-radius: 8px; /* Rounded corners */
+    width: 350px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center text */
+}
+
+.error-messagesRegister ul {
+    padding: 0; 
+    margin: 0; 
+    width: 100%; 
+}
+
+.error-messagesRegister ul li {
+    list-style-type: none; 
+    margin: 10px 0; 
+    font-size: 1.6rem; 
+}
+    
+
+.error-messagesRegister ul li.success {
+    color: green !important; /* Ensure success messages are green */
+}
+
+
+.alert-ok-buttonRegister {
+    margin-top: 2rem;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    color: #333;
+    background-color: #d8e3d5;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.alert-ok-buttonRegister:hover {
+    background-color: #503cd1; /* Darker color on hover */
+    color: #fff;
+}

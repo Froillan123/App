@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;
+    font-family: "Poppins", sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body 
+{
+    /* background-image: url('/static/images/blob-bg.png'); */
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center; 
+    min-height: 100vh; 
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.Login 
+{
+    background: rgba(255, 255, 255, 0.8); /* Optional: add a background for better visibility */
+    padding: 2rem; /* Add some padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+    width: 350px; /* Set a fixed width for the form */
+    line-height: 2;
+}
+
+h1 
+{
+    margin-bottom: 1rem; /* Space between title and form */
+    text-align: center; /* Center the heading */
+    font-size: 3rem;
+}
+
+label 
+{
+    display: block; /* Make labels block elements */
+    margin-bottom: 1rem; /* Space below labels */
+    font-weight: 500; /* Bold labels */
+    font-size: 1.6rem;
+}
+
+input 
+{
+    width: 100%; /* Full width for inputs */
+    padding: 0.8rem; /* Padding inside the input */
+    margin-bottom: 1rem; /* Space below inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 1.4rem; /* Font size */
+}
+
+input:focus {
+    border-color: #0aa45f; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+button#submit {
+    width: 100%; /* Full width for the button */
+    border-radius: 1.5rem;
+    font-size: 1.6rem;
+    background-color: #0aa45f;
+    color: white; /* Set text color for better visibility */
+    border: none; /* Remove default border */
+    padding: 0.8rem; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth background transition */
+    margin-top: 2rem;
+}
+
+button#submit:hover {
+    background-color: #088a4f; /* Darker shade on hover */
+}
+
+ul {
+    margin-top: 1rem; /* Space above messages */
+    color: red; /* Set color for error messages */
+}
+
+p {
+    text-align: center; /* Center the text */
+    margin-top: 2rem; /* Space above paragraph */
+}
+
+@media (max-width: 792px) {
+    body {
+        min-height: 100vh; /* Ensure it takes full viewport height */
+        background-image: url('/static/images/blob-bg.png'); /* Reapply the background */
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        background-position: right; /* Center the background image */
+    }
+
+    html, body {
+        margin: 0; /* Reset margins */
+        padding: 0; /* Reset paddings */
+    }
+
+    .Login {
+        margin: 20px; /* Add margin around the form */
+        background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better visibility */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    }
+}
+
+
+
