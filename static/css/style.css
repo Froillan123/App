@@ -240,6 +240,9 @@ header .buttons a:hover {
     {
         border: 1px solid var(--primary-color);
     }
+    .services-container .services-box:hover {
+        transform: scale(1.0);
+    }
 }
 
 @media (max-width: 560px) 

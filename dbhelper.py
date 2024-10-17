@@ -27,7 +27,8 @@ def create_user(username, password, first_name, last_name, birthday, marital_sta
     try:
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
-            cursor.execute('''
+            print(f"Inserting user: {username}, {email}")  # Debug line
+            cursor.execute(''' 
                 INSERT INTO users (username, password, first_name, last_name, birthday, marital_status, address, contact_info, email)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (username, password, first_name, last_name, birthday, marital_status, address, contact_info, email))
@@ -41,6 +42,23 @@ def create_user(username, password, first_name, last_name, birthday, marital_sta
         return False
 
 
+# After registration, check users in the database
+def check_users():
+    conn = sqlite3.connect(DATABASE)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    conn.close()
+    print("Users in database:", users)
+
+
+def get_user_by_email(email):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users WHERE email = ?', (email,))
+    user = cursor.fetchone()
+    conn.close()
+    return user
 
 
 def update_user(username, first_name, last_name, birthday, marital_status, address, contact_info, email):

@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from routes.auth import auth  
 from routes.main import main  
 from models import * 
-import os
+from os import system
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'

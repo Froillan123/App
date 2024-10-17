@@ -41,23 +41,20 @@ def login():
         password = request.form['password'].strip()
         
         print(f"Attempting to log in with username: {username} and password: {password}")  # Debug line
-        user = get_user(username, password)
+        user = get_user(username, password)  # Fetch user details based on username and password
         if user:
             session['username'] = username
             
-            # Check if profile is complete
-            if user.profile_complete:  # Assuming you have a way to check if the profile is complete
-                return redirect(url_for('main.dashboard'))
-            else:
-                # If the profile is not complete, you may want to inform the user and redirect accordingly
-                flash('Please complete your profile.', 'warning')
-                return redirect(url_for('main.update_profile'))  # Redirect to update profile if not complete
+            # You don't need to check if username and password are true
+            # Just redirect to the dashboard if user exists
+            return redirect(url_for('main.dashboard'))
         else:
             print("Login failed: User not found")  # Debug line
             flash('Invalid credentials! Please try again.')
             return redirect(url_for('auth.login'))
     
     return render_template('login.html')
+
 
 
 @auth.route('/logout')
