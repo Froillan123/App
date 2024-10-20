@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html
+{
+    font-size: 65%;
+}
+
+body 
+{
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #fff;
+    padding: 1rem 2%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+
+.search-bar 
+{
+    margin: 0 25px;
+    display: flex;
+    flex-grow: 2;
+}
+
+.search-bar input {
+    width: 350px; /* Smaller search bar */
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    margin-right: 0.8rem;
+    font-size: 2rem; /* Adjust font size here */
+
+}
+
+.search-bar button {
+    background-color: #fff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #008f68;
+    border-radius: 4px;
+    margin-left: 5px;
+    font-size: 1.6rem;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+}
+
+.profile img {
+    height: 40px;
+    border-radius: 50%;
+}
+
+main {
+    display: flex;
+    margin: 20px;
+}
+
+.left-panel {
+    width: 25%;
+}
+
+.user-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.user-card img {
+    width: 80px;
+    border-radius: 50%;
+}
+
+.user-card h2 {
+    margin: 10px 0;
+}
+
+.user-card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #008f68;
+    text-decoration: none;
+}
+.post
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-content {
+    width: 50%;
+    padding: 0 20px;
+
+}
+
+.Posting
+{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1rem 4%;
+    border-radius: 1rem;
+}
+.tabs
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+.tabs button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 20px;
+    gap: 8px;
+}
+
+.suggestions {
+    margin-top: 20px;
+}
+
+.suggested-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.suggested-card img {
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.suggested-card button {
+    margin-left: auto;
+    background-color: #008f68;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.right-panel {
+    width: 25%;
+}
+
+.best-rating {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.best-rating ul {
+    list-style-type: none;
+}
+
+.best-rating li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.best-rating img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+footer {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.footer-menu a {
+    margin: 0 10px;
+    color: #008f68;
+    text-decoration: none;
+}

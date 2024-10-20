@@ -18,24 +18,6 @@
     --text-color: #333333;
     --error-warning: #FF6B6B;
 }
-html::-webkit-scrollbar
-{
-  width: 1.5em;
-  height: 1em;
-}
-
-html::-webkit-scrollbar-track
-{
-  background:var(--text-color);
-  border-radius: 100vw;
-  margin-block: 0.5em;
-}
-
-html::-webkit-scrollbar-thumb {
-    background: rgba(10, 164, 95, 1); /* Adjust the RGB values as needed and set the alpha (transparency) value */
-    border-radius: 100vw;
-    margin-block: 0.5em;
-  }
   
 html
 {

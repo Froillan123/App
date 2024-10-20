@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .table-container {
+            overflow-x: auto; /* Enables horizontal scrolling */
+            margin-bottom: 30px; /* Space below the table */
+            border: 1px solid #ddd; /* Optional: border around the table */
+            border-radius: 5px; /* Optional: rounded corners */
+            box-shadow: 0 .4rem .8rem #0005; /* Optional: shadow effect */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+            margin: auto;
+        }
+
+        .logout-button {
+            float: right; /* Aligns the button to the right */
+            padding: 10px 15px;
+            background-color: #ff4c4c; /* Red background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #ff1a1a; /* Darker red on hover */
+        }
+
+        @media (max-width: 768px) {
+            .logout-button {
+                float: none; /* Align button in center for small screens */
+                display: block;
+                margin: 0 auto;
+                margin-bottom: 10px;
+            }
+
+            th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5) { /* Hide first and last names */
+                display: none;
+            }
+
+            th.combined-name, td.combined-name { /* Show combined name column */
+                display: table-cell;
+            }
+        }
+
+        @media (min-width: 769px) {
+            th.combined-name, td.combined-name { /* Hide combined name column */
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dashboard</h1>
+    
+    <!-- Logout Button -->
+    <a href="{{ url_for('auth.logout') }}">
+        <button class="logout-button">Logout</button>
+    </a>
+
+    <h2>User Information</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th class="first-name">First Name</th>
+                    <th class="last-name">Last Name</th>
+                    <th class="combined-name">Name</th> <!-- Combined name column -->
+                    <th>Birthday</th>
+                    <th>Marital Status</th>
+                    <th>Address</th>
+                    <th>Contact Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td class="first-name">{{ user.first_name }}</td>
+                    <td class="last-name">{{ user.last_name }}</td>
+                    <td class="combined-name">{{ user.first_name }} {{ user.last_name }}</td> <!-- Combined name -->
+                    <td>{{ user.birthday }}</td>
+                    <td>{{ user.marital_status }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.contact_info }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Login Attempts</h2>
+    <canvas id="loginChart"></canvas>
+
+    <script>
+        // Initialize the chart
+        const ctx = document.getElementById('loginChart').getContext('2d');
+        const loginData = {
+            labels: {{ login_attempts.labels | tojson }},
+            datasets: [{
+                label: 'Login Attempts',
+                data: {{ login_attempts.data | tojson }},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        const loginChart = new Chart(ctx, {
+            type: 'bar',
+            data: loginData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Function to toggle visibility of name columns
+        function toggleNameColumns() {
+            const width = window.innerWidth;
+            const firstNames = document.querySelectorAll('.first-name');
+            const lastNames = document.querySelectorAll('.last-name');
+            const combinedNames = document.querySelectorAll('.combined-name');
+
+            if (width > 768) {
+                // Show first and last names, hide combined name
+                firstNames.forEach(cell => cell.style.display = 'table-cell');
+                lastNames.forEach(cell => cell.style.display = 'table-cell');
+                combinedNames.forEach(cell => cell.style.display = 'none');
+            } else {
+                // Hide first and last names, show combined name
+                firstNames.forEach(cell => cell.style.display = 'none');
+                lastNames.forEach(cell => cell.style.display = 'none');
+                combinedNames.forEach(cell => cell.style.display = 'table-cell');
+            }
+        }
+
+        // Add event listener to toggle columns on resize
+        window.addEventListener('resize', toggleNameColumns);
+        // Initial check
+        toggleNameColumns();
+    </script>
+
+</body>
+</html>

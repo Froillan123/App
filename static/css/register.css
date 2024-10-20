@@ -88,20 +88,19 @@ h1 {
 }
 
 
-.btn 
-{
-    display: block;
+.btn {
+    display: block; /* Change to block to allow margin auto to work */
+    width: 300px;
+    margin: 2rem auto; /* Center the button */
     border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
+    text-align: center;
+    font-size: 2rem;
     background-color: #0aa45f;
     color: white; /* Set text color for better visibility */
     border: none; /* Remove default border */
     padding: 1rem; /* Add padding */
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s; /* Smooth background transition */
-    margin-top: 2rem;
 }
 
 .btn:hover {
@@ -127,6 +126,10 @@ p {
 /* Media Queries */
 @media (max-width: 792px) {
    
+    html
+    {
+        font-size: 45%;
+    }
 
     .container {
         padding: 2.5rem; /* Adjust padding for smaller screens */
@@ -134,11 +137,17 @@ p {
     }
 
     h1 {
-        font-size: 2.5rem; /* Smaller title on mobile */
+        font-size: 3rem; /* Smaller title on mobile */
     }
 
     .input-box input,
     .input-box select {
         width: 100%; /* Full width for inputs on small screens */
+    }
+    .btn 
+    {
+       display: flex;
+       width: 100%;
+       font-size: 2rem;
     }
 }

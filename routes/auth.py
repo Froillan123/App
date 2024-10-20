@@ -39,21 +39,26 @@ def login():
     if request.method == 'POST':
         username = request.form['username'].strip()
         password = request.form['password'].strip()
-        
-        print(f"Attempting to log in with username: {username} and password: {password}")  # Debug line
+
+        # Log the login attempt
+        log_login_attempt(username)  # Log the attempt
+
         user = get_user(username, password)  # Fetch user details based on username and password
+
         if user:
             session['username'] = username
             
-            # You don't need to check if username and password are true
-            # Just redirect to the dashboard if user exists
-            return redirect(url_for('main.dashboard'))
+            if username.startswith('admin-'):
+                return redirect(url_for('main.dashboard'))  # Redirect to the dashboard for admin
+            else:
+                return redirect(url_for('main.newsfeed'))  # Redirect to the regular newsfeed for regular users
+        
         else:
-            print("Login failed: User not found")  # Debug line
             flash('Invalid credentials! Please try again.')
             return redirect(url_for('auth.login'))
     
     return render_template('login.html')
+
 
 
 

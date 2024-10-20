@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care-Match Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <!-- Import FontAwesome and Boxicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"> 
+                <img src="{{ url_for('static', filename='images/png.png') }}" alt="" width="75">
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="menu">
+                <button><i class="fas fa-home"></i> Home</button>
+                <button><i class="fas fa-envelope"></i> Messaging</button>
+                <button><i class="fas fa-bell"></i> Notification</button>
+                <button><i class="fas fa-briefcase"></i> Job</button>
+            </div>
+            <div class="profile">
+                <img src="profile.png" alt="User Profile">
+            </div>
+            <a href="{{ url_for('auth.logout') }}">
+                <button class="logout-button">Logout</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="left-panel">
+            <div class="user-card">
+                <img src="user.png" alt="Anne Jane">
+                <h2>Anne Jane</h2>
+                <p>Located At: New York City</p>
+                <p>Hi, My name is Anne Jane and I am 67 years old. I enjoy reading, gardening, and spending time with my family. Due to some mobility challenges, I am seeking a compassionate and reliable caregiver to assist me with daily activities.</p>
+                <a href="#">View More</a>
+            </div>
+        </section>
+
+        <section class="main-content">
+            <div class="Posting">
+            <div class="post">
+                <img src="" alt="">
+                <input type="text" placeholder="Post...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="tabs">
+                <button><i class="bx bxs-camera"></i> Media</button>
+                <button><i class="bx bxs-file"></i> Article</button>
+                <button><i class="bx bxs-group"></i> Community</button>
+            </div>
+        </div>
+            <div class="suggestions">
+                <div class="suggested-card">
+                    <img src="caretaker1.png" alt="Jane Lopez Smith">
+                    <h3>Jane Lopez Smith</h3>
+                    <p>Located At: San Francisco, California</p>
+                    <p>Hi, My Name is Jane Lopez Smith and I had 3 years of experience being a caretaker.</p>
+                    <button>Message Me</button>
+                </div>
+                
+                <div class="suggested-card">
+                    <img src="caretaker2.png" alt="John Doe">
+                    <h3>John Doe</h3>
+                    <p>Located At: New York City</p>
+                    <p>In your seven years of experience, you've probably developed a wide range of skills and qualities that are crucial for providing quality care.</p>
+                    <a href="#">View More</a>
+                    <button>Message Me</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="best-rating">
+                <h3>Best Rating Caretaker</h3>
+                <ul>
+                    <li>
+                        <img src="best1.png" alt="John Doe">
+                        <span>John Doe - ⭐⭐⭐⭐⭐</span>
+                    </li>
+                    <li>
+                        <img src="best2.png" alt="Justine Blake">
+                        <span>Justine Blake - ⭐⭐⭐⭐⭐</span>
+                    </li>
+                    <li>
+                        <img src="best3.png" alt="Sophia Claire">
+                        <span>Sophia Claire - ⭐⭐⭐⭐</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-menu">
+            <a href="#">About</a>
+            <a href="#">Advertising</a>
+            <a href="#">Help Center</a>
+            <a href="#">Privacy and Terms</a>
+            <a href="#">Business Service</a>
+        </div>
+        <p>&copy; Care-Match 2024. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
