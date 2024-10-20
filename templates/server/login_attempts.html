@@ -8,6 +8,9 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/login_attempts.css') }}">
+
+	
 	<title>Login Attempts</title>
 </head>
 <body>
@@ -80,42 +83,48 @@
 		<!-- NAVBAR -->
 
 		<!-- MAIN -->
-		<main id="dashboard">
+		<main>
 			<div class="head-title"> 
 				<div class="left">
 					<h1>Login Attempts</h1>
 				</div>
 			</div>
 
-            <div class="table-data-login">
-                <div class="order">
-                    <div class="head">
-                        <h3>Recent Login Attempts</h3>
-                    </div>
-                    <table>
-                        <thead>
+			<link rel="stylesheet" href="{{ url_for('static', filename='css/login_attempts.css') }}">
+
+
+<div class="table-data-login w3-container">
+    <div class="order w3-card-4 w3-light-grey" style="border-radius: .8rem;">
+        <div class="head">
+            <h3 class="w3-center" style="color: var(--primary-color);">Recent Login Attempts</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="w3-table w3-striped w3-bordered" sty>
+                <thead>
+                    <tr style="color: var(--dark);">
+                        <th style="text-align: center;">Username</th>
+                        <th style="text-align: center;">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if login_attempts %}
+                        {% for attempt in login_attempts %}
                             <tr>
-                                <th>Username</th>
-                                <th>Timestamp</th>
+                                <td style="text-align: center;">{{ attempt[1] }}</td>  <!-- Displaying the Username -->
+                                <td style="text-align: center;">{{ attempt[2] }}</td>  <!-- Displaying the Timestamp -->
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% if login_attempts %}
-                                {% for attempt in login_attempts %}
-                                    <tr>
-                                        <td>{{ attempt[1] }}</td>  <!-- Displaying the Username -->
-                                        <td>{{ attempt[2] }}</td>  <!-- Displaying the Timestamp -->
-                                    </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td colspan="2">No login attempts recorded.</td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="2" class="w3-center">No login attempts recorded.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
             
 		</main>
 		<!-- MAIN -->

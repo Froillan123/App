@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for, session  # Added url_for and session imports
 
 main = Blueprint('main', __name__)
 
@@ -16,8 +16,16 @@ def dashboard():
 
 @main.route('/login_attempts')
 def login_attempts():
-    return render_template('server/login_attempts.html')  # Updated path
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+
+    # Don't reset the session here; just render the page
+    return render_template('server/login_attempts.html')
 
 @main.route('/team')
 def team():
-    return render_template('server/team.html')  # Updated path
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+
+    # Don't reset the session here; just render the page
+    return render_template('server/team.html')

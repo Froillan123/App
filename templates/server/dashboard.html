@@ -8,31 +8,9 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
 	<title>Dashboard</title>
 </head>
-<script>
-	var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-// Listen for updates to active user count
-socket.on('update_active_users', function(data) {
-	document.getElementById('activeUserCount').innerText = data.active_user_count;
-});
-
-
-// Update the date and time every second
-function updateDateTime() {
-	var now = new Date();
-	var formattedTime = now.getFullYear() + '-' +
-						('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-						('0' + now.getDate()).slice(-2) + ' ' +
-						('0' + now.getHours()).slice(-2) + ':' +
-						('0' + now.getMinutes()).slice(-2) + ':' +
-						('0' + now.getSeconds()).slice(-2);
-	document.getElementById('currentDateTime').innerText = formattedTime;
-}
-
-setInterval(updateDateTime, 1000);  // Update date and time every second
+<body></body>
 </script>
 <body>
 
@@ -118,7 +96,7 @@ setInterval(updateDateTime, 1000);  // Update date and time every second
 				<li>
 					<i class='bx bxs-user'></i>
 					<span class="text">
-						<h3>{{ active_user_count }}</h3>  <!-- Displaying the count of active users -->
+						<h3 id="activeUserCount">{{ active_user_count }}</h3>
 						<p>Active users</p>
 					</span>
 				</li>				
@@ -132,7 +110,7 @@ setInterval(updateDateTime, 1000);  // Update date and time every second
 				<li>
 					<i class='bx bxs-calendar'></i>
 					<span class="text">
-						<h3>{{ current_datetime }}</h3>  <!-- Displaying the current date and time -->
+						<h3 id="currentDateTime">{{ current_datetime }}</h3>
 						<p>Date</p>
 					</span>
 				</li>
@@ -185,5 +163,37 @@ setInterval(updateDateTime, 1000);  // Update date and time every second
 	
 
 	<script src="/static/js/dashboard.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+	<script>
+		// Connect to the socket
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+	
+		// Listen for updates to active user count
+		socket.on('update_active_users', function(data) {
+			document.getElementById('activeUserCount').innerText = data.active_user_count;
+		});
+	
+		// Update the date and time every second
+		function updateDateTime() {
+			var now = new Date();
+			var formattedTime = now.getFullYear() + '-' +
+								('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+								('0' + now.getDate()).slice(-2) + ' ' +
+								('0' + now.getHours()).slice(-2) + ':' +
+								('0' + now.getMinutes()).slice(-2) + ':' +
+								('0' + now.getSeconds()).slice(-2);
+			document.getElementById('currentDateTime').innerText = formattedTime;
+		} 
+	
+		// Set an interval to update the date and time every second
+		setInterval(updateDateTime, 1000);
+	
+		// Emit an event to notify the server about the new active user
+		socket.emit('user_connected', { username: '{{ session['username'] }}' });
+	</script>
+	
 </body>
 </html>
