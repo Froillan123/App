@@ -1,8 +1,10 @@
+#dhelper.py
 import sqlite3
 import os
 
 # Database file
 DATABASE = 'database.db'
+
 
 # Function to get the database connection
 def get_db_connection():
@@ -10,8 +12,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # Fetch rows as dictionaries
     return conn
 
-# Initialize the database if it doesn't exist
-# Initialize the database if it doesn't exist
 def init_db():
     if not os.path.exists(DATABASE):
         with sqlite3.connect(DATABASE) as conn:
@@ -48,34 +48,46 @@ def init_db():
             conn.commit()
 
 
-# Function to create a user and insert into both tables
+
+def execute_query_with_return(query, params=()):
+    # Connect to the database and execute a query with return
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        return cursor.fetchall()  # Fetch and return results
+
+def execute_query(query, params=()):
+    # Connect to the database and execute a query without returning results
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        conn.commit()  # Commit the changes to the database
+
+
 def create_user(username, password, first_name, last_name, birthday, marital_status, address, contact_info, email):
+    # Check if the user already exists
+    existing_user_query = "SELECT * FROM users WHERE username = ?"
+    existing_user = execute_query_with_return(existing_user_query, (username,))
+    
+    if existing_user:
+        return False  # User already exists
+
+    # Insert into users table
+    insert_user_query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
+    execute_query(insert_user_query, (username, password, email))
+
+    # Insert into personal_info table
+    insert_user_info_query = """
+        INSERT INTO personal_info (user_id, first_name, last_name, birthday, marital_status, address, contact_info)
+        VALUES ((SELECT id FROM users WHERE username = ?), ?, ?, ?, ?, ?, ?)
+    """
     try:
-        with sqlite3.connect(DATABASE) as conn:
-            cursor = conn.cursor()
-
-            # Insert into users table
-            cursor.execute(''' 
-                INSERT INTO users (username, password, email)
-                VALUES (?, ?, ?)
-            ''', (username, password, email))
-
-            user_id = cursor.lastrowid  # Get the last inserted user ID
-
-            # Insert into personal_info table
-            cursor.execute(''' 
-                INSERT INTO personal_info (user_id, first_name, last_name, birthday, marital_status, address, contact_info)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            ''', (user_id, first_name, last_name, birthday, marital_status, address, contact_info))
-
-            conn.commit()  # Commit the transaction
-            return True
-    except sqlite3.IntegrityError as e:
-        print("Integrity Error:", e)  # Handle unique constraint violations
-        return False
+        execute_query(insert_user_info_query, (username, first_name, last_name, birthday, marital_status, address, contact_info))
+        return True  # Successfully created user
     except Exception as e:
-        print("Error:", e)  # Handle other exceptions
-        return False
+        print("Error inserting into personal_info:", e)  # Debugging line
+        return False  # Failed to create user information
+
 
 # Function to fetch a user by email
 def get_user_by_email(email):
@@ -150,6 +162,7 @@ def get_user(username, password):
 
 
 # Debugging: Function to list all users in the database
+
 def check_users():
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
@@ -157,6 +170,7 @@ def check_users():
     users = cursor.fetchall()
     conn.close()
     print("Users in database:", users)
+
 
 # Debugging: Function to list all personal_info records in the database
 def check_personal_info():
@@ -166,7 +180,6 @@ def check_personal_info():
     info = cursor.fetchall()
     conn.close()
     print("Personal Info records in database:", info)
-
 
 
 def get_all_users():
@@ -185,15 +198,33 @@ def get_all_users():
     conn.close()
     return users
 
+def get_total_users():
+    """Function to count all registered users in the database."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM users")  # Count total users
+    total_users = cursor.fetchone()[0]  # Fetch the count
+    conn.close()
+    return total_users
 
-def log_login_attempt(username):
-    try:
-        with sqlite3.connect(DATABASE) as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO login_attempts (username) VALUES (?)', (username,))
-            conn.commit()  # Commit the transaction
-    except Exception as e:
-        print("Error logging login attempt:", e)  # Handle errors (optional)
+
+
+def log_login_attempts(username):
+    conn = sqlite3.connect('database.db')  # Ensure this path is correct
+    cursor = conn.cursor()
+    
+    # Check if the table exists
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='login_attempts'")
+    if cursor.fetchone() is None:
+        print("login_attempts table does not exist!")
+    else:
+        print("login_attempts table found!")
+    
+    cursor.execute("INSERT INTO login_attempts (username) VALUES (?)", (username,))
+    conn.commit()  # Commit the changes
+    conn.close()  # Always close the connection
+
+
 
 
 def log_failed_login(username):
@@ -203,17 +234,18 @@ def log_failed_login(username):
         cursor.execute('INSERT INTO login_attempts (username) VALUES (?)', (username,))
         conn.commit()
 
+
 def get_login_attempts():
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    cursor.execute('SELECT timestamp FROM login_attempts')  # Fetch timestamps
+    cursor.execute('SELECT username, timestamp FROM login_attempts')  # Fetch usernames and timestamps
     attempts = cursor.fetchall()
     
     from collections import Counter
     from datetime import datetime
 
-    timestamps = [attempt[0] for attempt in attempts]  # Assuming attempt[0] is the timestamp
+    timestamps = [attempt[1] for attempt in attempts]  # Assuming attempt[1] is the timestamp
     attempts_counter = Counter(datetime.strptime(ts, '%Y-%m-%d %H:%M:%S').date() for ts in timestamps)
     
     labels = list(attempts_counter.keys())

@@ -1,188 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        h1, h2 {
-            text-align: center;
-        }
-
-        .table-container {
-            overflow-x: auto; /* Enables horizontal scrolling */
-            margin-bottom: 30px; /* Space below the table */
-            border: 1px solid #ddd; /* Optional: border around the table */
-            border-radius: 5px; /* Optional: rounded corners */
-            box-shadow: 0 .4rem .8rem #0005; /* Optional: shadow effect */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-            margin: auto;
-        }
-
-        .logout-button {
-            float: right; /* Aligns the button to the right */
-            padding: 10px 15px;
-            background-color: #ff4c4c; /* Red background */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .logout-button:hover {
-            background-color: #ff1a1a; /* Darker red on hover */
-        }
-
-        @media (max-width: 768px) {
-            .logout-button {
-                float: none; /* Align button in center for small screens */
-                display: block;
-                margin: 0 auto;
-                margin-bottom: 10px;
-            }
-
-            th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5) { /* Hide first and last names */
-                display: none;
-            }
-
-            th.combined-name, td.combined-name { /* Show combined name column */
-                display: table-cell;
-            }
-        }
-
-        @media (min-width: 769px) {
-            th.combined-name, td.combined-name { /* Hide combined name column */
-                display: none;
-            }
-        }
-    </style>
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+	<title>Dashboard</title>
 </head>
+<script>
+	var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+// Listen for updates to active user count
+socket.on('update_active_users', function(data) {
+	document.getElementById('activeUserCount').innerText = data.active_user_count;
+});
+
+
+// Update the date and time every second
+function updateDateTime() {
+	var now = new Date();
+	var formattedTime = now.getFullYear() + '-' +
+						('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+						('0' + now.getDate()).slice(-2) + ' ' +
+						('0' + now.getHours()).slice(-2) + ':' +
+						('0' + now.getMinutes()).slice(-2) + ':' +
+						('0' + now.getSeconds()).slice(-2);
+	document.getElementById('currentDateTime').innerText = formattedTime;
+}
+
+setInterval(updateDateTime, 1000);  // Update date and time every second
+</script>
 <body>
 
-    <h1>Dashboard</h1>
-    
-    <!-- Logout Button -->
-    <a href="{{ url_for('auth.logout') }}">
-        <button class="logout-button">Logout</button>
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+	<a href="#" class="brand">
+        <i class='bx bxs-dashboard'></i>
+        <span class="text">Dashboard</span>
     </a>
+    <ul class="side-menu top">
+        <li class="active">
+            <a href="{{ url_for('auth.dashboard') }}">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.login_attempts') }}">
+                <i class='bx bxs-doughnut-chart'></i>
+                <span class="text">Login Attempts</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('main.team') }}">
+                <i class='bx bxs-group'></i>
+                <span class="text">Team</span>
+            </a>
+        </li>
+    </ul>
+		<ul class="side-menu">
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' style="color: var(--primary-color);"></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ url_for('auth.logout') }}" class="logout">
+					<i class='bx bxs-log-out-circle' style="color: var(--red);"></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
 
-    <h2>User Information</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th class="first-name">First Name</th>
-                    <th class="last-name">Last Name</th>
-                    <th class="combined-name">Name</th> <!-- Combined name column -->
-                    <th>Birthday</th>
-                    <th>Marital Status</th>
-                    <th>Address</th>
-                    <th>Contact Info</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td class="first-name">{{ user.first_name }}</td>
-                    <td class="last-name">{{ user.last_name }}</td>
-                    <td class="combined-name">{{ user.first_name }} {{ user.last_name }}</td> <!-- Combined name -->
-                    <td>{{ user.birthday }}</td>
-                    <td>{{ user.marital_status }}</td>
-                    <td>{{ user.address }}</td>
-                    <td>{{ user.contact_info }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
-    <h2>Login Attempts</h2>
-    <canvas id="loginChart"></canvas>
 
-    <script>
-        // Initialize the chart
-        const ctx = document.getElementById('loginChart').getContext('2d');
-        const loginData = {
-            labels: {{ login_attempts.labels | tojson }},
-            datasets: [{
-                label: 'Login Attempts',
-                data: {{ login_attempts.data | tojson }},
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell' ></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile">
+				<img src="/static/images/admin.png">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
 
-        const loginChart = new Chart(ctx, {
-            type: 'bar',
-            data: loginData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+		<!-- MAIN -->
+		<main id="dashboard">
+			<div class="head-title" > 
+				<div class="left">
+					<h1>Dashboard</h1>
+				</div>
+			</div>
 
-        // Function to toggle visibility of name columns
-        function toggleNameColumns() {
-            const width = window.innerWidth;
-            const firstNames = document.querySelectorAll('.first-name');
-            const lastNames = document.querySelectorAll('.last-name');
-            const combinedNames = document.querySelectorAll('.combined-name');
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-user'></i>
+					<span class="text">
+						<h3>{{ active_user_count }}</h3>  <!-- Displaying the count of active users -->
+						<p>Active users</p>
+					</span>
+				</li>				
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3>{{ total_users_count }}</h3>  <!-- Displaying the count of all registered users -->
+						<p>All users</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-calendar'></i>
+					<span class="text">
+						<h3>{{ current_datetime }}</h3>  <!-- Displaying the current date and time -->
+						<p>Date</p>
+					</span>
+				</li>
+				
+			</ul>
 
-            if (width > 768) {
-                // Show first and last names, hide combined name
-                firstNames.forEach(cell => cell.style.display = 'table-cell');
-                lastNames.forEach(cell => cell.style.display = 'table-cell');
-                combinedNames.forEach(cell => cell.style.display = 'none');
-            } else {
-                // Hide first and last names, show combined name
-                firstNames.forEach(cell => cell.style.display = 'none');
-                lastNames.forEach(cell => cell.style.display = 'none');
-                combinedNames.forEach(cell => cell.style.display = 'table-cell');
-            }
-        }
 
-        // Add event listener to toggle columns on resize
-        window.addEventListener('resize', toggleNameColumns);
-        // Initial check
-        toggleNameColumns();
-    </script>
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3 >User Information</h3>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Email</th>
+								<th class="combined-name">Name</th> <!-- Combined name column -->
+								<th>Birthday</th>
+								<th>Marital Status</th>
+								<th>Address</th>
+								<th>Contact Info</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for user in users %}
+							<tr>
+								<td>{{ user.username }}</td>
+								<td>{{ user.email }}</td>
+								<td class="combined-name">{{ user.first_name }} {{ user.last_name }}</td> <!-- Combined name -->
+								<td>{{ user.birthday }}</td>
+								<td>{{ user.marital_status }}</td>
+								<td>{{ user.address }}</td>
+								<td>{{ user.contact_info }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
 
+				<div class="login Attemps" style="display: none;">
+					<h2>Login Attempts</h2>
+					<canvas id="loginChart"></canvas>
+				</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+	
+
+	<script src="/static/js/dashboard.js"></script>
 </body>
 </html>

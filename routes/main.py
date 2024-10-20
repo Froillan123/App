@@ -1,32 +1,23 @@
-from flask import Flask, Blueprint, render_template, session, redirect, url_for
-from dbhelper import get_user_info, get_all_users, get_login_attempts
-from .auth import *
+from flask import Blueprint, render_template
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    return render_template('index.html')
-
-
-@main.route('/dashboard')
-def dashboard():
-    # Fetch user information
-    users = get_all_users()
-    
-    # Fetch login attempts instead of registration attempts
-    login_attempts = get_login_attempts()  # Update this line
-
-    return render_template('server/dashboard.html', users=users, login_attempts=login_attempts)  # Update the template variable
-
-
-
+    return render_template('index.html')  # Updated to 'index.html'
 
 @main.route('/newsfeed')
 def newsfeed():
-    if 'username' in session:
-        return render_template('newsfeed.html', username=session['username'])
-    return redirect(url_for('auth.login'))
+    return render_template('newsfeed.html')
 
+@main.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
 
+@main.route('/login_attempts')
+def login_attempts():
+    return render_template('server/login_attempts.html')  # Updated path
 
+@main.route('/team')
+def team():
+    return render_template('server/team.html')  # Updated path

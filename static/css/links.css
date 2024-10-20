@@ -3,6 +3,28 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+  font-family: "Poppins", sans-serif;
+}
+
+
+:root {
+  --bg-color: #ffff;
+  --primary-color: #0aa45f;
+  --text-color: #333333;
+  --error-warning: #FF6B6B;
+}
+
 html::-webkit-scrollbar
 {
   width: 1.5em;
